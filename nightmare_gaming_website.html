@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nightmare - Gaming Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .bg-cube {
+            position: absolute;
+            border: 1px solid #00ff88;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transform: translateY(-100%);
+            transition: all 0.4s ease;
+        }
+
+        header.visible {
+            transform: translateY(0);
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #00ff88;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff88;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 107, 107, 0.5); }
+            to { text-shadow: 0 0 30px rgba(78, 205, 196, 0.8); }
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.5);
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+            animation: shine 1s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translate(-100%, -100%); }
+            100% { transform: rotate(45deg) translate(100%, 100%); }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .card p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .card-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(69, 183, 209, 0.3);
+        }
+
+        /* Server Info */
+        .server-info {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .server-ip {
+            font-size: 2rem;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px 30px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 20px 0;
+            border: 1px solid #00ff88;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #00ff88;
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <header>
+        <nav class="container">
+            <div class="logo">NIGHTMARE</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#server">Server</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>NIGHTMARE</h1>
+                <p>Welcome to the Ultimate Gaming Experience</p>
+                <a href="#server" class="cta-button">Join the Adventure</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="server" class="section">
+        <div class="container">
+            <h2 class="fade-in">Minecraft Server</h2>
+            <div class="server-info fade-in">
+                <h3>🎮 Nightmare Minecraft Server</h3>
+                <p>Experience the thrill of survival, creativity, and community in our custom Minecraft world. Join thousands of players in epic adventures, build magnificent structures, and conquer challenging quests.</p>
+                <div class="server-ip">nightmare.minecraft.server</div>
+                <p><strong>Features:</strong> Custom plugins • Economy system • PvP arenas • Creative plots • Regular events</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="section">
+        <div class="container">
+            <h2 class="fade-in">Join Our Community</h2>
+            <div class="cards-grid">
+                <div class="card fade-in">
+                    <span class="card-icon">🎬</span>
+                    <h3>YouTube Channel</h3>
+                    <p>Subscribe to our YouTube channel for epic gameplay videos, tutorials, server highlights, and exclusive content from the Nightmare community.</p>
+                    <a href="#" class="card-button">Subscribe Now</a>
+                </div>
+                
+                <div class="card fade-in">
+                    <span class="card-icon">💬</span>
+                    <h3>Discord Server</h3>
+                    <p>Connect with fellow gamers, get real-time support, participate in events, and stay updated with all the latest news from Nightmare.</p>
+                    <a href="#" class="card-button">Join Discord</a>
+                </div>
+                
+                <div class="card fade-in">
+                    <span class="card-icon">📸</span>
+                    <h3>Instagram</h3>
+                    <p>Follow us on Instagram for behind-the-scenes content, community highlights, artwork, and daily updates from the Nightmare universe.</p>
+                    <a href="#" class="card-button">Follow Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="fade-in">Ready to Begin?</h2>
+            <div class="server-info fade-in">
+                <p>Join thousands of players in the Nightmare experience. Whether you're a builder, fighter, or explorer, there's a place for you in our community.</p>
+                <a href="#" class="cta-button">Start Playing Today</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#">🎬</a>
+                <a href="#">💬</a>
+                <a href="#">📸</a>
+            </div>
+            <p>&copy; 2025 Nightmare Gaming Community. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animated background cubes
+        function createBackgroundCubes() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const cubeCount = 15;
+            
+            for (let i = 0; i < cubeCount; i++) {
+                const cube = document.createElement('div');
+                cube.className = 'bg-cube';
+                cube.style.left = Math.random() * 100 + '%';
+                cube.style.top = Math.random() * 100 + '%';
+                cube.style.width = (Math.random() * 50 + 20) + 'px';
+                cube.style.height = cube.style.width;
+                cube.style.animationDelay = Math.random() * 6 + 's';
+                cube.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                bgAnimation.appendChild(cube);
+            }
+        }
+
+        // Scroll animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Smooth scrolling
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Header visibility on scroll
+        function handleHeaderScroll() {
+            const header = document.querySelector('header');
+            const scrolled = window.scrollY > 100;
+            
+            if (scrolled) {
+                header.classList.add('visible');
+            } else {
+                header.classList.remove('visible');
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createBackgroundCubes();
+            smoothScroll();
+            handleScrollAnimations();
+            
+            window.addEventListener('scroll', function() {
+                handleScrollAnimations();
+                handleHeaderScroll();
+            });
+        });
+
+        // Add some interactive effects
+        document.addEventListener('mousemove', function(e) {
+            const cursor = { x: e.clientX, y: e.clientY };
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardCenter = {
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2
+                };
+                
+                const distance = Math.sqrt(
+                    Math.pow(cursor.x - cardCenter.x, 2) + 
+                    Math.pow(cursor.y - cardCenter.y, 2)
+                );
+                
+                const maxDistance = 300;
+                const influence = Math.max(0, 1 - distance / maxDistance);
+                
+                const rotateX = (cursor.y - cardCenter.y) * influence * 0.05;
+                const rotateY = (cursor.x - cardCenter.x) * influence * 0.05;
+                
+                card.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) translateY(${card.matches(':hover') ? '-10px' : '0'})`;
+            });
+        });
+    </script>
+</body>
+</html>
