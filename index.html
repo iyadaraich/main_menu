@@ -282,16 +282,18 @@
         .server-title {
             font-size: 2.5rem;
             color: #ff6b6b;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
             position: relative;
-            display: inline-block;
+            display: block;
+            width: 100%;
+            clear: both;
         }
 
         .server-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
@@ -308,12 +310,14 @@
         .best-server {
             font-size: 1.8rem;
             color: #4ecdc4;
-            margin: 20px 0;
+            margin: 30px 0 40px 0;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
             position: relative;
-            display: inline-block;
+            display: block;
+            width: 100%;
+            clear: both;
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -344,6 +348,13 @@
         @keyframes twinkle {
             0% { opacity: 0.3; transform: translateY(-50%) scale(0.8); }
             100% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        }
+
+        .server-description {
+            margin: 30px 0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         .server-ip {
@@ -435,11 +446,26 @@
 
             .best-server {
                 font-size: 1.4rem;
+                margin: 20px 0 30px 0;
             }
 
             .server-ip {
                 font-size: 1.4rem;
                 padding: 15px 20px;
+                margin: 25px 0;
+            }
+
+            .best-server::before,
+            .best-server::after {
+                font-size: 1.2rem;
+            }
+
+            .best-server::before {
+                left: -30px;
+            }
+
+            .best-server::after {
+                right: -30px;
             }
         }
 
@@ -487,7 +513,9 @@
             <div class="server-info fade-in">
                 <div class="server-title">🎮 NightMare Gaming Server</div>
                 <div class="best-server">The Best Server Experience</div>
-                <p>Experience the thrill of survival, creativity, and community in our custom gaming world. Join thousands of players in epic adventures, build magnificent structures, and conquer challenging quests.</p>
+                <div class="server-description">
+                    <p>Experience the thrill of survival, creativity, and community in our custom gaming world. Join thousands of players in epic adventures, build magnificent structures, and conquer challenging quests.</p>
+                </div>
                 <div class="server-ip">sub_nightmare.aternos.me:26101</div>
                 <p><strong>Features:</strong> Custom plugins • Economy system • PvP arenas • Creative plots • Regular events</p>
             </div>
