@@ -269,7 +269,7 @@
             box-shadow: 0 10px 20px rgba(69, 183, 209, 0.3);
         }
 
-        /* Server Info */
+        /* Server Info - إصلاح المشكلة هنا */
         .server-info {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
@@ -279,45 +279,35 @@
             border: 2px solid rgba(0, 255, 136, 0.3);
         }
 
+        .server-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .server-icon {
+            font-size: 2.5rem;
+        }
+
         .server-title {
             font-size: 2.5rem;
             color: #ff6b6b;
-            margin-bottom: 30px;
             text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
-            position: relative;
-            display: block;
-            width: 100%;
-            clear: both;
-        }
-
-        .server-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            animation: expandLine 2s ease-in-out infinite;
-        }
-
-        @keyframes expandLine {
-            0%, 100% { width: 0; }
-            50% { width: 80%; }
+            margin: 0;
         }
 
         .best-server {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             color: #4ecdc4;
-            margin: 30px 0 40px 0;
+            margin: 20px 0 30px 0;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
             position: relative;
-            display: block;
-            width: 100%;
-            clear: both;
+            display: inline-block;
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -333,16 +323,16 @@
             top: 50%;
             transform: translateY(-50%);
             color: #00ff88;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             animation: twinkle 1.5s ease-in-out infinite alternate;
         }
 
         .best-server::before {
-            left: -40px;
+            left: -30px;
         }
 
         .best-server::after {
-            right: -40px;
+            right: -30px;
         }
 
         @keyframes twinkle {
@@ -351,9 +341,9 @@
         }
 
         .server-description {
-            margin: 30px 0;
-            line-height: 1.8;
             font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
             opacity: 0.9;
         }
 
@@ -393,6 +383,15 @@
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
         }
 
+        .server-features {
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        .server-features strong {
+            color: #4ecdc4;
+        }
+
         /* Footer */
         footer {
             background: rgba(0, 0, 0, 0.5);
@@ -415,15 +414,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .social-links a img {
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover img {
+        .social-links a:hover {
             transform: translateY(-5px) scale(1.1);
-            filter: brightness(1.2);
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
         }
 
         /* Responsive */
@@ -440,32 +440,35 @@
                 grid-template-columns: 1fr;
             }
 
+            .server-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
             .server-title {
                 font-size: 2rem;
             }
 
             .best-server {
-                font-size: 1.4rem;
-                margin: 20px 0 30px 0;
+                font-size: 1.2rem;
+            }
+
+            .best-server::before,
+            .best-server::after {
+                font-size: 1rem;
+            }
+
+            .best-server::before {
+                left: -25px;
+            }
+
+            .best-server::after {
+                right: -25px;
             }
 
             .server-ip {
                 font-size: 1.4rem;
                 padding: 15px 20px;
-                margin: 25px 0;
-            }
-
-            .best-server::before,
-            .best-server::after {
-                font-size: 1.2rem;
-            }
-
-            .best-server::before {
-                left: -30px;
-            }
-
-            .best-server::after {
-                right: -30px;
             }
         }
 
@@ -511,13 +514,18 @@
         <div class="container">
             <h2 class="fade-in">NightMare Server</h2>
             <div class="server-info fade-in">
-                <div class="server-title">🎮 NightMare Gaming Server</div>
-                <div class="best-server">The Best Server Experience</div>
-                <div class="server-description">
-                    <p>Experience the thrill of survival, creativity, and community in our custom gaming world. Join thousands of players in epic adventures, build magnificent structures, and conquer challenging quests.</p>
+                <div class="server-header">
+                    <span class="server-icon">🎮</span>
+                    <div class="server-title">NightMare Gaming Server</div>
                 </div>
+                
+                <div class="best-server">The Best Server Experience</div>
+                
+                <p class="server-description">Experience the thrill of survival, creativity, and community in our custom gaming world. Join thousands of players in epic adventures, build magnificent structures, and conquer challenging quests.</p>
+                
                 <div class="server-ip">sub_nightmare.aternos.me:26101</div>
-                <p><strong>Features:</strong> Custom plugins • Economy system • PvP arenas • Creative plots • Regular events</p>
+                
+                <p class="server-features"><strong>Features:</strong> Custom plugins • Economy system • PvP arenas • Creative plots • Regular events</p>
             </div>
         </div>
     </section>
@@ -527,27 +535,21 @@
             <h2 class="fade-in">Join Our Community</h2>
             <div class="cards-grid">
                 <div class="card fade-in">
-                    <span class="card-icon">
-                        <img src="Images/youtube.png" alt="YouTube">
-                    </span>
+                    <span class="card-icon">🎥</span>
                     <h3>YouTube Channel</h3>
                     <p>Subscribe to our YouTube channel for epic gameplay videos, tutorials, server highlights, and exclusive content from the Nightmare community.</p>
                     <a href="https://www.youtube.com/@Iyad_arai" target="_blank" class="card-button">Subscribe Now</a>
                 </div>
                 
                 <div class="card fade-in">
-                    <span class="card-icon">
-                        <img src="Images/discord.png" alt="Discord">
-                    </span>
+                    <span class="card-icon">💬</span>
                     <h3>Discord Server</h3>
                     <p>Connect with fellow gamers, get real-time support, participate in events, and stay updated with all the latest news from Nightmare.</p>
                     <a href="https://discord.gg/uDJzD9KN" target="_blank" class="card-button">Join Discord</a>
                 </div>
                 
                 <div class="card fade-in">
-                    <span class="card-icon">
-                        <img src="Images/instagram.png" alt="Instagram">
-                    </span>
+                    <span class="card-icon">📸</span>
                     <h3>Instagram</h3>
                     <p>Follow us on Instagram for behind-the-scenes content, community highlights, artwork, and daily updates from the Nightmare universe.</p>
                     <a href="https://instagram.com/iyad_araich" target="_blank" class="card-button">Follow Us</a>
@@ -569,15 +571,9 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://www.youtube.com/@Iyad_arai" target="_blank">
-                    <img src="Images/youtube.png" alt="YouTube" style="width: 40px; height: 40px;">
-                </a>
-                <a href="https://discord.gg/uDJzD9KN" target="_blank">
-                    <img src="Images/discord.png" alt="Discord" style="width: 40px; height: 40px;">
-                </a>
-                <a href="https://instagram.com/iyad_araich" target="_blank">
-                    <img src="Images/instagram.png" alt="Instagram" style="width: 40px; height: 40px;">
-                </a>
+                <a href="https://www.youtube.com/@Iyad_arai" target="_blank" title="YouTube">🎥</a>
+                <a href="https://discord.gg/uDJzD9KN" target="_blank" title="Discord">💬</a>
+                <a href="https://instagram.com/iyad_araich" target="_blank" title="Instagram">📸</a>
             </div>
             <p>&copy; 2025 Nightmare Gaming Community. All rights reserved.</p>
         </div>
