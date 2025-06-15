@@ -279,16 +279,107 @@
             border: 2px solid rgba(0, 255, 136, 0.3);
         }
 
+        .server-title {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            position: relative;
+            display: inline-block;
+        }
+
+        .server-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            animation: expandLine 2s ease-in-out infinite;
+        }
+
+        @keyframes expandLine {
+            0%, 100% { width: 0; }
+            50% { width: 80%; }
+        }
+
+        .best-server {
+            font-size: 1.8rem;
+            color: #4ecdc4;
+            margin: 20px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .best-server::before,
+        .best-server::after {
+            content: '★';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ff88;
+            font-size: 1.5rem;
+            animation: twinkle 1.5s ease-in-out infinite alternate;
+        }
+
+        .best-server::before {
+            left: -40px;
+        }
+
+        .best-server::after {
+            right: -40px;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: translateY(-50%) scale(0.8); }
+            100% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        }
+
         .server-ip {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #00ff88;
             font-family: 'Courier New', monospace;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 15px 30px;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 30px;
+            border-radius: 15px;
             display: inline-block;
-            margin: 20px 0;
-            border: 1px solid #00ff88;
+            margin: 30px 0;
+            border: 2px solid #00ff88;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .server-ip::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .server-ip:hover::before {
+            left: 100%;
+        }
+
+        .server-ip:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
         }
 
         /* Footer */
@@ -337,6 +428,19 @@
             .cards-grid {
                 grid-template-columns: 1fr;
             }
+
+            .server-title {
+                font-size: 2rem;
+            }
+
+            .best-server {
+                font-size: 1.4rem;
+            }
+
+            .server-ip {
+                font-size: 1.4rem;
+                padding: 15px 20px;
+            }
         }
 
         /* Scroll animations */
@@ -379,11 +483,12 @@
 
     <section id="server" class="section">
         <div class="container">
-            <h2 class="fade-in">Minecraft Server</h2>
+            <h2 class="fade-in">NightMare Server</h2>
             <div class="server-info fade-in">
-                <h3>🎮 Nightmare Minecraft Server</h3>
-                <p>Experience the thrill of survival, creativity, and community in our custom Minecraft world. Join thousands of players in epic adventures, build magnificent structures, and conquer challenging quests.</p>
-                <div class="server-ip">nightmare.minecraft.server</div>
+                <div class="server-title">🎮 NightMare Gaming Server</div>
+                <div class="best-server">The Best Server Experience</div>
+                <p>Experience the thrill of survival, creativity, and community in our custom gaming world. Join thousands of players in epic adventures, build magnificent structures, and conquer challenging quests.</p>
+                <div class="server-ip">sub_nightmare.aternos.me:26101</div>
                 <p><strong>Features:</strong> Custom plugins • Economy system • PvP arenas • Creative plots • Regular events</p>
             </div>
         </div>
@@ -511,11 +616,32 @@
             }
         }
 
+        // Copy server IP to clipboard
+        function copyServerIP() {
+            const serverIP = document.querySelector('.server-ip');
+            navigator.clipboard.writeText(serverIP.textContent).then(() => {
+                const originalText = serverIP.textContent;
+                serverIP.textContent = 'Copied! ✓';
+                serverIP.style.color = '#4ecdc4';
+                setTimeout(() => {
+                    serverIP.textContent = originalText;
+                    serverIP.style.color = '#00ff88';
+                }, 2000);
+            });
+        }
+
         // Initialize everything
         document.addEventListener('DOMContentLoaded', function() {
             createBackgroundCubes();
             smoothScroll();
             handleScrollAnimations();
+            
+            // Add click event to server IP
+            const serverIP = document.querySelector('.server-ip');
+            if (serverIP) {
+                serverIP.addEventListener('click', copyServerIP);
+                serverIP.title = 'Click to copy server IP';
+            }
             
             window.addEventListener('scroll', function() {
                 handleScrollAnimations();
