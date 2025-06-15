@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nightmare - Gaming Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 0 60px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+
+        .platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .platform-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease;
+        }
+
+        .platform-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .platform-card:hover::before {
+            animation: shine 0.5s ease-in-out;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes shine {
+            0% { opacity: 0; transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .platform-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .minecraft { color: #4CAF50; }
+        .youtube { color: #FF0000; }
+        .discord { color: #7289DA; }
+        .instagram { color: #E4405F; }
+
+        .platform-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .platform-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .community-stats {
+            text-align: center;
+            padding: 60px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin: 60px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            opacity: 0.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .platform-card:nth-child(1) { animation-delay: 0.1s; }
+        .platform-card:nth-child(2) { animation-delay: 0.2s; }
+        .platform-card:nth-child(3) { animation-delay: 0.3s; }
+        .platform-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; }
+            .platforms { grid-template-columns: 1fr; }
+            .platform-card { padding: 30px 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="floating-particles" id="particles"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="logo">NIGHTMARE</h1>
+            <p class="tagline">Your Ultimate Gaming Community Hub</p>
+        </header>
+
+        <main>
+            <div class="platforms">
+                <div class="platform-card">
+                    <span class="platform-icon minecraft">⛏️</span>
+                    <h3>Nightmare Server</h3>
+                    <p>Survive the ultimate challenge! Our hardcore survival server features custom bosses, unique items, and terrifying night events. Only the bravest players survive the Nightmare.</p>
+                    <a href="#" class="cta-button" onclick="copyServerIP()">Copy Server IP</a>
+                    <div style="margin-top: 15px; font-size: 0.9rem; opacity: 0.7;">
+                        Version: 1.20.4 | Survival | Hard Mode
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <span class="platform-icon youtube">📺</span>
+                    <h3>Nightmare TV</h3>
+                    <p>Watch epic survival challenges, server events, and horror-themed Minecraft content. Join us as we face the darkest corners of the blocky world!</p>
+                    <a href="https://youtube.com/@NightmareMinecraft" class="cta-button">Subscribe Now</a>
+                    <div style="margin-top: 15px; font-size: 0.9rem; opacity: 0.7;">
+                        New videos every Tuesday & Friday
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <span class="platform-icon discord">💬</span>
+                    <h3>Nightmare Guild</h3>
+                    <p>Join our active Discord community! Get server updates, form teams for challenges, share your builds, and chat with fellow survivors 24/7.</p>
+                    <a href="https://discord.gg/nightmare" class="cta-button">Join Discord</a>
+                    <div style="margin-top: 15px; font-size: 0.9rem; opacity: 0.7;">
+                        Events every weekend!
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <span class="platform-icon instagram">📸</span>
+                    <h3>@NightmareBuilds</h3>
+                    <p>Epic screenshots, time-lapse builds, server highlights, and sneak peeks of upcoming content. Follow for daily doses of Nightmare creativity!</p>
+                    <a href="https://instagram.com/nightmarebuilds" class="cta-button">Follow Us</a>
+                    <div style="margin-top: 15px; font-size: 0.9rem; opacity: 0.7;">
+                        Build of the week features!
+                    </div>
+                </div>
+            </div>
+
+            <div class="community-stats">
+                <h2>Join Our Growing Community</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="players">1,247</div>
+                        <div class="stat-label">Active Players</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="subscribers">5,892</div>
+                        <div class="stat-label">YouTube Subscribers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="members">3,456</div>
+                        <div class="stat-label">Discord Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="followers">2,103</div>
+                        <div class="stat-label">Instagram Followers</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Nightmare Gaming Community. Built for gamers, by gamers.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            setInterval(() => {
+                if (particlesContainer.children.length < 20) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    particlesContainer.appendChild(particle);
+
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 7000);
+                }
+            }, 300);
+        }
+
+        // Animate numbers counting up
+        function animateNumbers() {
+            const numbers = [
+                { element: 'players', target: 1247 },
+                { element: 'subscribers', target: 5892 },
+                { element: 'members', target: 3456 },
+                { element: 'followers', target: 2103 }
+            ];
+
+            numbers.forEach(num => {
+                const element = document.getElementById(num.element);
+                let current = 0;
+                const increment = num.target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= num.target) {
+                        current = num.target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current).toLocaleString();
+                }, 20);
+            });
+        }
+
+        // Copy server IP functionality
+        function copyServerIP() {
+            const serverIP = "play.nightmare-mc.net"; // Replace with your actual server IP
+            navigator.clipboard.writeText(serverIP).then(() => {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'IP Copied!';
+                button.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4)';
+                }, 2000);
+            }).catch(() => {
+                alert('Server IP: play.nightmare-mc.net\nCopy this to connect!');
+            });
+        }
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createParticles();
+            
+            // Animate numbers when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateNumbers();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            observer.observe(document.querySelector('.community-stats'));
+        });
+
+        // Add smooth scrolling for any future anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
