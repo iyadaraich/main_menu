@@ -27,6 +27,28 @@
       padding: 10px;
       text-align: center;
       font-weight: bold;
+        /* الشريط كامل */
+::-webkit-scrollbar {
+  width: 12px; /* العرض ديال الشريط */
+}
+
+/* المسار الخلفي */
+::-webkit-scrollbar-track {
+  background: #1e1e1e; /* لون الخلفية */
+  border-radius: 10px;
+}
+
+/* الجزء المتحرك */
+::-webkit-scrollbar-thumb {
+  background: #4caf50; /* لون السحب */
+  border-radius: 10px;
+}
+
+/* لما المستخدم يدير hover على الشريط */
+::-webkit-scrollbar-thumb:hover {
+  background: #388e3c;
+}
+
     }
   </style>
 </head>
