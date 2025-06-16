@@ -6,6 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nightmare - Gaming Community</title>
     <style>
+    #networkStatus {
+      display: none;
+      background-color: red;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div id="networkStatus">🔴 اتصال الإنترنت ضعيف أو غير متوفر</div>
+
+<script>
+  function updateNetworkStatus() {
+    const statusDiv = document.getElementById("networkStatus");
+    if (navigator.onLine) {
+      statusDiv.style.display = "none";
+    } else {
+      statusDiv.style.display = "block";
+    }
+  }
+
+  window.addEventListener('online', updateNetworkStatus);
+  window.addEventListener('offline', updateNetworkStatus);
+
+  // Check when page loads
+  updateNetworkStatus();
+</script>
+
+</body>
+</html>
+    <style>
         * {
             margin: 0;
             padding: 0;
