@@ -606,18 +606,18 @@
     
     <section id="server" class="section">
         <div class="container">
-            <h2 class="fade-in">NightMare Server</h2>
+            <h2 class="fade-in">minecraft Server</h2>
             <div class="server-info fade-in">
                 <div class="server-header">
                     <span class="server-icon">🎮</span>
-                    <div class="server-title">NightMare Gaming Server</div>
+                    <div class="server-title">right now we don't have any mc server</div>
                 </div>
                 
                 <div class="best-server">The Best Server Experience</div>
                 
                 <p class="server-description">Experience the thrill of survival, creativity, and community in our custom gaming world. Join thousands of players in epic adventures, build magnificent structures, and conquer challenging quests.</p>
                 
-                <div class="server-ip">sub_nightmare.aternos.me:26101</div>
+                <div class="server-ip">0.0.0.0</div>
                 
                 <p class="server-features"><strong>Features:</strong> Custom plugins • Economy system • PvP arenas • Creative plots • Regular events</p>
             </div>
@@ -751,7 +751,7 @@
             const serverIP = document.querySelector('.server-ip');
             navigator.clipboard.writeText(serverIP.textContent).then(() => {
                 const originalText = serverIP.textContent;
-                serverIP.textContent = 'Copied! ✓';
+                serverIP.textContent = 'hmmmm...';
                 serverIP.style.color = '#4ecdc4';
                 setTimeout(() => {
                     serverIP.textContent = originalText;
@@ -770,7 +770,7 @@
             const serverIP = document.querySelector('.server-ip');
             if (serverIP) {
                 serverIP.addEventListener('click', copyServerIP);
-                serverIP.title = 'Click to copy server IP';
+                serverIP.title = 'right now we dont have any website';
             }
             
             window.addEventListener('scroll', function() {
