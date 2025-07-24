@@ -60,6 +60,34 @@
 </head>
 <body>
 
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+  const supabaseUrl = "https://vafxkzhklrwgcbukfrja.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhZnhremhrbHJ3Z2NidWtmcmphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzNTczMzIsImV4cCI6MjA2ODkzMzMzMn0.2BG9xQo0buRx65rNMAeKp8kW2sBtwvQA2laAqg_4YGM";
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  async function sendHelpMessage() {
+    const message = document.getElementById("message").value;
+
+    if (!message.trim()) {
+      alert("المرجو كتابة رسالة!");
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("help_messages")
+      .insert([{ message }]);
+
+    if (error) {
+      alert("خطأ: " + error.message);
+    } else {
+      alert("✅ تم إرسال الرسالة!");
+      document.getElementById("message").value = "";
+    }
+  }
+</script>
+
   <!-- شاشة البداية -->
   <div id="splash">
     <div class="falling-object">🎮 Iyad World</div>
