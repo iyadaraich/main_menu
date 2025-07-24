@@ -60,6 +60,8 @@
 </head>
 <body>
 
+
+      <!-- database -->
 <script type="module">
   import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
@@ -608,6 +610,10 @@
                 <li><a href="https://iyadaraich.github.io/mc_server/">Server</a></li>
                 <li><a href="https://iyadaraich.github.io/my_social/">Community</a></li>
                 <li><a href="https://iyadaraich.github.io/members/">Contact</a></li>
+                <textarea id="message" placeholder="اكتب رسالتك..." rows="4" cols="40" style="padding:10px;"></textarea>
+<br>
+<button onclick="sendHelpMessage()" style="margin-top: 10px;">إرسال</button>
+
             </ul>
         </nav>
     </header>
